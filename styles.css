@@ -1,7 +1,10 @@
 :root {
     --text-color: #636363;
-    --button-color: #1992d4;
-    --button-shadow-color: #e92020;
+    --button-color-x: #ff4800;
+    --button-color-o: #34d000;
+    --button-shadow-color: #605656;
+    --won-cells-color-x: #ff4800;
+    --won-cells-color-o: #34d000;
 }
 
 body {
@@ -67,7 +70,6 @@ main {
 }
 
 span {
-    background-color: var(--button-color);
     color: #fff;
     padding: 0.5rem 0.8rem;
     padding-bottom: 1.1rem;
@@ -79,14 +81,22 @@ span {
     justify-content: center;
 }
 
+#playerChoiceBtn1 {
+    background-color: var(--button-color-x);
+}
+
+#playerChoiceBtn2 {
+    background-color: var(--button-color-o);
+}
+
 .selected {
     border: 3px var(--button-shadow-color) solid;
-    box-shadow: 0 0 5px 1px var(--button-shadow-color);
 }
 
 #resetBtn {
     width: 10rem;
     padding-bottom: 1.2rem;
+    background-color: var(--button-color-x);
 }
 
 .game {
@@ -109,8 +119,12 @@ span {
     align-items: center;
 }
 
-.highlighted-cell {
-    background-color: rgb(255, 0, 0);
+.highlighted-cell-x {
+    background-color: var(--won-cells-color-x);
+}
+
+.highlighted-cell-o {
+    background-color: var(--won-cells-color-o);
 }
 
 .footer {

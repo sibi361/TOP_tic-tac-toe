@@ -69,7 +69,8 @@ const game = (() => {
     const setBoard = () => {
         gameCells.forEach((cell, index) => {
             cell.textContent = gameBoard[index];
-            cell.classList.remove("highlighted-cell");
+            cell.classList.remove("highlighted-cell-x");
+            cell.classList.remove("highlighted-cell-o");
         });
     };
 
@@ -127,11 +128,17 @@ const game = (() => {
         gameRoot.style.opacity = "0.5";
 
         if (winnerObj) {
-            setInfoText(`${winnerObj.winner} WINS the game!!!`);
+            const winner = winnerObj.winner;
+            setInfoText(`${winner} WINS the game!!!`);
 
             const set = winnerObj.set;
-            console.log(set);
-            set.forEach((i) => gameCells[i].classList.add("highlighted-cell"));
+            winner === "X"
+                ? set.forEach((i) =>
+                      gameCells[i].classList.add("highlighted-cell-x")
+                  )
+                : set.forEach((i) =>
+                      gameCells[i].classList.add("highlighted-cell-o")
+                  );
         } else setInfoText("It's a TIE!");
 
         infoPanelBtn1.classList.add("hidden");
