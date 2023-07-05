@@ -8,7 +8,7 @@ const gameRoot = document.querySelector(".game");
 const gameCells = Array.from(gameRoot.children);
 
 const game = (() => {
-    // util functions
+    // utility functions
     const setGameHeightEqualToWidth = () =>
         (gameRoot.style.height = `${gameRoot.clientWidth}px`);
 
@@ -69,6 +69,7 @@ const game = (() => {
     const setBoard = () => {
         gameCells.forEach((cell, index) => {
             cell.textContent = gameBoard[index];
+            cell.classList.remove("highlighted-cell");
         });
     };
 
@@ -107,25 +108,30 @@ const game = (() => {
         ];
         const winSets = winSetsOneIndexed.map((set) => set.map((i) => i - 1));
 
-        let wonPlayer = false;
+        let winStat = false;
         winSets.forEach((set) => {
             if (
                 gameBoard[set[0]] === gameBoard[set[1]] &&
                 gameBoard[set[1]] === gameBoard[set[2]] &&
                 gameBoard[set[0]] !== null &&
                 gameBoard[set[0]] !== ""
-            )
-                wonPlayer = gameBoard[set[0]];
+            ) {
+                winStat = { winner: gameBoard[set[0]], set };
+            }
         });
-        return wonPlayer;
+        return winStat;
     };
 
-    const gameOver = (winner = false) => {
+    const gameOver = (winnerObj = false) => {
         gameOverState = true;
         gameRoot.style.opacity = "0.5";
 
-        if (winner) {
-            setInfoText(`${winner} WINS the game!!!`);
+        if (winnerObj) {
+            setInfoText(`${winnerObj.winner} WINS the game!!!`);
+
+            const set = winnerObj.set;
+            console.log(set);
+            set.forEach((i) => gameCells[i].classList.add("highlighted-cell"));
         } else setInfoText("It's a TIE!");
 
         infoPanelBtn1.classList.add("hidden");

@@ -1,7 +1,7 @@
 :root {
     --text-color: #636363;
     --button-color: #1992d4;
-    --button-shadow-color: rgba(0, 0, 0, 0.5);
+    --button-shadow-color: #e92020;
 }
 
 body {
@@ -81,7 +81,7 @@ span {
 
 .selected {
     border: 3px var(--button-shadow-color) solid;
-    box-shadow: 0 0 10px 3px var(--button-shadow-color);
+    box-shadow: 0 0 5px 1px var(--button-shadow-color);
 }
 
 #resetBtn {
@@ -107,6 +107,10 @@ span {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.highlighted-cell {
+    background-color: rgb(255, 0, 0);
 }
 
 .footer {
@@ -141,12 +145,21 @@ span,
 }
 
 @media (max-width: 768px) {
-    .info-panel {
-        padding: 0;
-    }
-
     .info-panel,
     .game {
         max-width: 90vw;
+    }
+
+    .info-panel {
+        margin-top: 1rem;
+        padding: 0;
+    }
+
+    #resetBtn {
+        width: 8rem;
+    }
+
+    .game {
+        margin: 3rem;
     }
 }
