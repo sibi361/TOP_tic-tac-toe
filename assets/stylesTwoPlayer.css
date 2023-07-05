@@ -1,10 +1,10 @@
 :root {
     --text-color: #636363;
-    --button-color-x: #ff4800;
-    --button-color-o: #34d000;
+    --button-color-x: #34d000;
+    --button-color-o: #ff4800;
     --button-shadow-color: #605656;
-    --won-cells-color-x: #ff4800;
-    --won-cells-color-o: #34d000;
+    --won-cells-color-x: #34d000;
+    --won-cells-color-o: #ff4800;
 }
 
 body {
@@ -82,6 +82,10 @@ main {
     align-items: center;
 }
 
+#info-panel-text {
+    text-align: center;
+}
+
 span {
     color: #fff;
     padding: 0.5rem 0.8rem;
@@ -142,7 +146,7 @@ span {
 
 .footer {
     text-align: center;
-    opacity: 0.5;
+    opacity: 0.8;
     margin: 1rem;
 
     display: flex;
@@ -178,15 +182,35 @@ span,
     }
 
     .info-panel {
-        margin-top: 1rem;
+        margin-top: 2rem;
         padding: 0;
     }
 
     #resetBtn {
         width: 8rem;
+        padding-bottom: 0.9rem;
     }
 
     .game {
         margin: 3rem;
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .cell {
+        font-size: 5rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .cell {
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 300px) {
+    .cell {
+        font-size: 3rem;
     }
 }

@@ -4,8 +4,8 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Tic-tac-toe Game</title>
-        <link rel="stylesheet" href="assets/styles.css" />
-        <script src="assets/scripts.js" defer></script>
+        <link rel="stylesheet" href="assets/stylesTwoPlayer.css" />
+        <script src="assets/scriptsTwoPlayer.js" defer></script>
     </head>
     <body>
         <div class="container">
@@ -22,16 +22,15 @@
                 >
                 <div class="spacer"></div>
                 <div class="header-points">
-                    <div>You: 0&nbsp;&nbsp;|&nbsp;&nbsp;Computer: 0</div>
+                    <div>X: 0&nbsp;&nbsp;|&nbsp;&nbsp;O: 0</div>
                 </div>
             </div>
 
             <main>
                 <div class="info-panel">
-                    <div id="info-panel-text">
-                        Press on any box to start!<br />Computer plays as soon
-                        as you do
-                    </div>
+                    <div id="info-panel-text">Who goes first?</div>
+                    <span class="selected" id="playerChoiceBtn1">X</span>
+                    <span id="playerChoiceBtn2">O</span>
                     <span class="hidden" id="resetBtn">Restart Game</span>
                 </div>
                 <div class="game">
@@ -48,7 +47,7 @@
             </main>
 
             <div class="footer">
-                <a href="indexTwoPlayer.html">Two Player Mode</a>
+                <a href="index.html">Play With AI</a>
                 <a
                     href="https://github.com/sibi361/TOP_tic-tac-toe/"
                     target="_blank"
