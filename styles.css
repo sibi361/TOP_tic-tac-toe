@@ -1,5 +1,7 @@
 :root {
     --text-color: #636363;
+    --button-color: #1992d4;
+    --button-shadow-color: rgba(0, 0, 0, 0.5);
 }
 
 body {
@@ -20,6 +22,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: bold;
 }
 
 .logo {
@@ -64,9 +67,9 @@ main {
 }
 
 span {
-    background-color: #1992d4;
+    background-color: var(--button-color);
     color: #fff;
-    padding: 0.7rem 1rem;
+    padding: 0.5rem 0.8rem;
     padding-bottom: 1.1rem;
     border-radius: 4rem;
     width: 1rem;
@@ -74,6 +77,11 @@ span {
     display: grid;
     align-items: center;
     justify-content: center;
+}
+
+.selected {
+    border: 3px var(--button-shadow-color) solid;
+    box-shadow: 0 0 10px 3px var(--button-shadow-color);
 }
 
 #resetBtn {
@@ -116,42 +124,6 @@ a {
     color: #000;
 }
 
-input[type="text"] {
-    min-width: 100px;
-    height: 0.4rem;
-    width: 100%;
-    background-color: #e2e8f0;
-    border: none;
-    padding: 1rem;
-    border-radius: 2rem;
-}
-
-input[type="text"]:focus-visible {
-    border: none;
-}
-
-.invalid-input {
-    border: 1px solid rgb(239, 52, 52) !important;
-}
-
-.btn {
-    background-color: #1992d4;
-    color: #fff;
-    padding: 0.7rem 1rem;
-    border-radius: 4rem;
-    width: 5rem;
-    height: 1rem;
-    display: grid;
-    align-items: center;
-    justify-content: center;
-}
-
-.header,
-div[class="content-heading"],
-div[class="card-title"] {
-    font-weight: bold;
-}
-
 .hidden {
     display: none;
 }
@@ -160,11 +132,11 @@ div[class="card-title"] {
     width: 1.5rem;
 }
 
+span,
 .cell,
 .icon,
 .btn,
-.resetBtn,
-.card-buttons img {
+.resetBtn {
     cursor: pointer;
 }
 

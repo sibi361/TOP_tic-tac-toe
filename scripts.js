@@ -1,29 +1,27 @@
-const TOTAL_CELL_COUNT = 9; // duh
+const TOTAL_CELL_COUNT = 9;
 
-const infoPanel = document.querySelector(".info-panel");
-const infoPanelBtn1 = document.querySelector("#button1");
-const infoPanelBtn2 = document.querySelector("#button2");
+const infoPanel = document.querySelector("#info-panel-text");
+const infoPanelBtn1 = document.querySelector("#playerChoiceBtn1");
+const infoPanelBtn2 = document.querySelector("#playerChoiceBtn2");
+const infoPanelResetBtn = document.querySelector("#resetBtn");
 const gameRoot = document.querySelector(".game");
 const gameCells = Array.from(gameRoot.children);
 
 const game = (() => {
     // util functions
-
     const setGameHeightEqualToWidth = () =>
         (gameRoot.style.height = `${gameRoot.clientWidth}px`);
 
-    const getCellIndex = (cell) => Number(cell.dataset["index"]);
-
-    const playerMove = () => (lastMove = lastMove === "X" ? "O" : "X");
-
     const setInfoText = (text) => (infoPanel.textContent = text);
 
-    // globar vars
+    const getCellIndex = (cell) => Number(cell.dataset["index"]);
+
+    const nextMoveIsByWho = () => (move === "O" ? "X" : "O");
+
+    // global vars
     let gameBoard;
     let gameOverState = false;
-    let lastMove = "O";
-
-    // const Playor factory
+    let move = "X";
 
     const init = () => {
         setGameHeightEqualToWidth();
@@ -33,7 +31,26 @@ const game = (() => {
             cell.addEventListener("click", (e) => playGame(e.target));
         });
 
+        infoPanelBtn1.addEventListener("click", (e) =>
+            handleXoChooserClick(e.target)
+        );
+        infoPanelBtn2.addEventListener("click", (e) =>
+            handleXoChooserClick(e.target)
+        );
+        infoPanelResetBtn.addEventListener("click", resetGame);
+
         resetGame();
+    };
+
+    const handleXoChooserClick = (btn = false) => {
+        if (!btn) {
+            move = document.querySelector(".selected").textContent;
+            return;
+        }
+
+        move = btn.textContent;
+        infoPanelBtn1.classList.toggle("selected");
+        infoPanelBtn2.classList.toggle("selected");
     };
 
     const resetGame = () => {
@@ -41,6 +58,12 @@ const game = (() => {
         setBoard();
         gameOverState = false;
         gameRoot.style.opacity = "1";
+
+        setInfoText("Who goes first?");
+        infoPanelBtn1.classList.remove("hidden");
+        infoPanelBtn2.classList.remove("hidden");
+        infoPanelResetBtn.classList.add("hidden");
+        handleXoChooserClick();
     };
 
     const setBoard = () => {
@@ -55,12 +78,14 @@ const game = (() => {
         // cannot select a spot that's already taken
         if (cell.textContent.length) return;
 
-        gameBoard[getCellIndex(cell)] = playerMove();
+        gameBoard[getCellIndex(cell)] = move;
         setBoard();
-        setInfoText(`It's ${lastMove === "O" ? "X" : "O"}'s turn now!`);
 
-        const winStat = checkWin();
-        if (winStat) gameOver(winStat);
+        move = nextMoveIsByWho();
+        setInfoText(`It's ${move}'s turn now!`);
+
+        const winner = checkWin();
+        if (winner) gameOver(winner);
 
         const filledCellsCount = gameCells.reduce(
             (count, cell) => count + Number(cell.textContent.length),
@@ -80,34 +105,33 @@ const game = (() => {
             [1, 5, 9],
             [3, 5, 7],
         ];
-        const winSetsZeroIndexed = winSetsOneIndexed.map((set) =>
-            set.map((i) => i - 1)
-        );
+        const winSets = winSetsOneIndexed.map((set) => set.map((i) => i - 1));
 
-        let winPlayer = false;
-        winSetsZeroIndexed.forEach((set) => {
+        let wonPlayer = false;
+        winSets.forEach((set) => {
             if (
                 gameBoard[set[0]] === gameBoard[set[1]] &&
                 gameBoard[set[1]] === gameBoard[set[2]] &&
                 gameBoard[set[0]] !== null &&
                 gameBoard[set[0]] !== ""
             )
-                winPlayer = gameBoard[set[0]];
+                wonPlayer = gameBoard[set[0]];
         });
-        return winPlayer;
+        return wonPlayer;
     };
 
     const gameOver = (winner = false) => {
+        gameOverState = true;
+        gameRoot.style.opacity = "0.5";
+
         if (winner) {
             setInfoText(`${winner} WINS the game!!!`);
         } else setInfoText("It's a TIE!");
-        gameOverState = true;
-        gameRoot.style.opacity = "0.5";
+
+        infoPanelBtn1.classList.add("hidden");
+        infoPanelBtn2.classList.add("hidden");
+        infoPanelResetBtn.classList.remove("hidden");
     };
 
     init();
-
-    return { resetGame };
 })();
-
-// console.log(game);
