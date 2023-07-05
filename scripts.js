@@ -1,5 +1,8 @@
 const TOTAL_CELL_COUNT = 9; // duh
 
+const infoPanel = document.querySelector(".info-panel");
+const infoPanelBtn1 = document.querySelector("#button1");
+const infoPanelBtn2 = document.querySelector("#button2");
 const gameRoot = document.querySelector(".game");
 const gameCells = Array.from(gameRoot.children);
 
@@ -9,14 +12,16 @@ const game = (() => {
     const setGameHeightEqualToWidth = () =>
         (gameRoot.style.height = `${gameRoot.clientWidth}px`);
 
-    const getCellIndex = (cell) => {
-        return Number(cell.dataset["index"]);
-    };
+    const getCellIndex = (cell) => Number(cell.dataset["index"]);
+
+    const playerMove = () => (lastMove = lastMove === "X" ? "O" : "X");
+
+    const setInfoText = (text) => (infoPanel.textContent = text);
 
     // globar vars
     let gameBoard;
-    // let gameBoard = ["", "", "", "", "", "", "", "X", "X"];
     let gameOverState = false;
+    let lastMove = "O";
 
     // const Playor factory
 
@@ -35,6 +40,7 @@ const game = (() => {
         gameBoard = Array(TOTAL_CELL_COUNT).fill("");
         setBoard();
         gameOverState = false;
+        gameRoot.style.opacity = "1";
     };
 
     const setBoard = () => {
@@ -49,9 +55,9 @@ const game = (() => {
         // cannot select a spot that's already taken
         if (cell.textContent.length) return;
 
-        const player = { move: "X" };
-        gameBoard[getCellIndex(cell)] = player.move;
+        gameBoard[getCellIndex(cell)] = playerMove();
         setBoard();
+        setInfoText(`It's ${lastMove === "O" ? "X" : "O"}'s turn now!`);
 
         const winStat = checkWin();
         if (winStat) gameOver(winStat);
@@ -93,9 +99,10 @@ const game = (() => {
 
     const gameOver = (winner = false) => {
         if (winner) {
-            console.log(`${winner} WINS !!!`);
-        } else console.log("It's a tieeee.");
+            setInfoText(`${winner} WINS the game!!!`);
+        } else setInfoText("It's a TIE!");
         gameOverState = true;
+        gameRoot.style.opacity = "0.5";
     };
 
     init();
