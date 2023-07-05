@@ -1,5 +1,6 @@
 const TOTAL_CELL_COUNT = 9;
 
+const headerPoints = document.querySelector(".header-points");
 const infoPanel = document.querySelector("#info-panel-text");
 const infoPanelBtn1 = document.querySelector("#playerChoiceBtn1");
 const infoPanelBtn2 = document.querySelector("#playerChoiceBtn2");
@@ -12,6 +13,9 @@ const game = (() => {
     const setGameHeightEqualToWidth = () =>
         (gameRoot.style.height = `${gameRoot.clientWidth}px`);
 
+    const setHeaderPoints = () =>
+        (headerPoints.innerHTML = `X: ${pointsX}&nbsp;&nbsp;|&nbsp;&nbsp;O: ${pointsY}`);
+
     const setInfoText = (text) => (infoPanel.textContent = text);
 
     const getCellIndex = (cell) => Number(cell.dataset["index"]);
@@ -22,10 +26,16 @@ const game = (() => {
     let gameBoard;
     let gameOverState = false;
     let move = "X";
+    let pointsX = 0;
+    let pointsY = 0;
 
     const init = () => {
         setGameHeightEqualToWidth();
         window.addEventListener("resize", setGameHeightEqualToWidth);
+
+        window.addEventListener("keydown", (e) =>
+            e.key === "Escape" ? resetGame(0) : {}
+        );
 
         gameCells.forEach((cell) => {
             cell.addEventListener("click", (e) => playGame(e.target));
@@ -139,6 +149,9 @@ const game = (() => {
                 : set.forEach((i) =>
                       gameCells[i].classList.add("highlighted-cell-o")
                   );
+
+            winner === "X" ? ++pointsX : ++pointsY;
+            setHeaderPoints();
         } else setInfoText("It's a TIE!");
 
         infoPanelBtn1.classList.add("hidden");

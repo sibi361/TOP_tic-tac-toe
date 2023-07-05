@@ -26,6 +26,7 @@ body {
     align-items: center;
     justify-content: center;
     font-weight: bold;
+    gap: 1rem;
 }
 
 .logo {
@@ -41,6 +42,18 @@ body {
 .logo-text {
     display: inline;
     font-size: 2rem;
+}
+
+.spacer {
+    padding: 1.4rem 0.05rem;
+    background-color: #000;
+    border: 1px solid #000;
+}
+
+.header-points {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 main {
