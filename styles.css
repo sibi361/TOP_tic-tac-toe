@@ -5,8 +5,8 @@
 body {
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir,
-        segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto,
-        arial, sans-serif;
+        segoe ui, helvetica neue, Cantarell, Ubuntu, roboto, noto, arial,
+        sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -50,10 +50,22 @@ main {
 }
 
 .game {
-    height: 500px;
     width: 500px;
     margin: 3rem;
     border: 1px solid black;
+
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+.cell {
+    font-size: 6rem;
+    font-weight: bold;
+    border: 1px solid black;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .footer {
@@ -155,4 +167,7 @@ img:hover,
 }
 
 @media (max-width: 768px) {
+    .game {
+        max-width: 90vw;
+    }
 }
