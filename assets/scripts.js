@@ -88,8 +88,10 @@ const game = (() => {
         );
         if (filledCellsCount === TOTAL_CELL_COUNT) gameOver();
 
-        move = nextMoveIsByWho();
-        if (move === "O") aiPlay();
+        if (!gameOverState) {
+            move = nextMoveIsByWho();
+            if (move === "O") aiPlay();
+        }
     };
 
     const aiPlay = () => {
